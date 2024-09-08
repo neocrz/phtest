@@ -14,7 +14,7 @@ def ask_input(prompt):
             print("Inputs do not match. Please try again.\n")
 
 
-def generate(key, m, length=16):
+def generate(key, m, length=32):
     combined = key + m
     hash_object = hashlib.sha256(combined.encode())
 
@@ -23,7 +23,14 @@ def generate(key, m, length=16):
     return pw[:length]
 
 m = ask_input("Enter m: ")
-key = ask_input("Enter the key: ")
 
-pw = generate(key, m, length=32)
-print(f"\nGenerated: {pw}")
+def main():
+    while(True):
+        size = input("Enter key size (default 32): ")
+        size = (int(size) if len(size) != 0 else 32)
+        key = ask_input("Enter the key: ")
+        pw = generate(key, m, length=size)
+        print(f"\nGenerated: {pw}\n")
+
+if __name__ == '__main__':
+    main()
